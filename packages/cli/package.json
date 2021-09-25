@@ -7,7 +7,7 @@
   "license": "ISC",
   "main": "",
   "bin": {
-    "test-cli": "bin/index.js"
+    "test-cli": "./bin/index.js"
   },
   "directories": {
     "lib": "lib",
@@ -23,7 +23,13 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
+    "@estayjs/util-log": "file:../util-log",
+    "colors": "^1.4.0",
+    "commander": "^8.2.0",
+    "dotenv": "^10.0.0",
     "import-local": "^3.0.2",
-    "npmlog": "^5.0.1"
+    "path-exists": "4.0.0",
+    "root-check": "1.0.0",
+    "user-home": "^3.0.0"
   }
 }

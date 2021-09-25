@@ -1,12 +1,13 @@
 #! /usr/bin/env node
 
 const importLocal = require('import-local');
-const npmlog = require('npmlog');
+const npmlog = require('@estayjs/util-log');
+
 
 if (importLocal(__filename)) {
-    npmlog.info('cli', 'damon: Using local version of this package 11')
+    npmlog.info('cli', 'Using local version of this package1')
 } else {
-    npmlog.info('cli', 'damon: Using global version of this package 12')
+    npmlog.info('cli', 'Using global version of this package2s')
     console.log(process.argv)
     require('../lib')(process.argv.slice(2))
 }
