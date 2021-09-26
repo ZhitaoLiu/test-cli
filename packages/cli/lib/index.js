@@ -3,6 +3,7 @@
 module.exports = cli;
 
 const path = require('path')
+const semver = require('semver');
 const { Command } = require('commander');
 const userHome = require('user-home');
 const pathExists = require('path-exists').sync;
@@ -13,12 +14,13 @@ const pkg = require('../package.json');
 const program = new Command();
 
 
-function cli() {
+async function cli() {
     // TODO
     console.log('进入cli/lib/index.js')
     
     try {
-        prepare()
+       await prepare()
+       register()
     } catch (error) {
         npmlog.error(error.message)
     }
@@ -26,12 +28,13 @@ function cli() {
 
 
 // 1.准备阶段
-function prepare() {
+async function prepare() {
+    console.log('进入准备阶段')
     checkCLIVersion()
     checkRootRole()
     checkUserHome()
     checkENV()
-    checkCLIUpdate()
+    await checkCLIUpdate()
 }
 // 1.1 检查cli版本
 function checkCLIVersion() {
@@ -70,8 +73,23 @@ function checkENV() {
 }
 
 // 1.5 检查版本更新
-function checkCLIUpdate(){
-    console.log('检查版本更新')
+async function checkCLIUpdate(){
+    const curVersion = pkg.version
+    const npmName = pkg.name
+    console.log(npmName, curVersion)
+    const { getNpmSemverVersion } = require('@estayjs/util-npm')
+    const latestVersion = await getNpmSemverVersion(curVersion, npmName)
+    if(latestVersion && semver.gt(latestVersion, curVersion)) {
+        npmlog.warn(colors.yellow(
+            `当前版本：${curVersion}，最新版本：${latestVersion}，
+            建议手动执行命令 npm install -g ${npmName}
+            `))
+    }
+
 }
-// 注册阶段
+
+// 2.注册阶段
+function register() {
+    console.log('进入注册阶段')
+}
 

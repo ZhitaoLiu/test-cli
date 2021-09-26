@@ -1,6 +1,6 @@
 {
-  "name": "@estayjs/util-log",
-  "version": "0.0.6",
+  "name": "@estayjs/util-npm",
+  "version": "0.0.1",
   "description": "> TODO: description",
   "author": "刘志涛 <damon.liu@estay.com>",
   "homepage": "https://github.com/ZhitaoLiu/test-cli#readme",
@@ -23,11 +23,12 @@
   "bugs": {
     "url": "https://github.com/ZhitaoLiu/test-cli/issues"
   },
-  "dependencies": {
-    "npmlog": "^5.0.1"
-  },
-  "gitHead": "af79abf33f5bed9da6de8320c76900364644a903",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "axios": "^0.21.4",
+    "semver": "^7.3.5",
+    "url-join": "^4.0.1"
   }
 }

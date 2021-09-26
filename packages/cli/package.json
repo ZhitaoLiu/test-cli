@@ -24,12 +24,15 @@
   },
   "dependencies": {
     "@estayjs/util-log": "file:../util-log",
+    "@estayjs/util-npm": "file:../util-npm",
     "colors": "^1.4.0",
     "commander": "^8.2.0",
     "dotenv": "^10.0.0",
     "import-local": "^3.0.2",
     "path-exists": "4.0.0",
     "root-check": "1.0.0",
+    "semver": "^7.3.5",
     "user-home": "^3.0.0"
-  }
+  },
+  "gitHead": "af79abf33f5bed9da6de8320c76900364644a903"
 }
