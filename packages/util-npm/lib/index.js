@@ -49,7 +49,7 @@ async function getNpmSemverVersion(baseVersion, npmName, registry) {
     return null
 }
 
-// 获取镜像源地址
+// 获取镜像源地址 1
 function getDefaultRegistry(isOriginal = false) {
     return isOriginal ? 'https://registry.npmjs.org' : 'https://registry.npm.taobao.org';
 }
