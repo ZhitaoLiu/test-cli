@@ -7,5 +7,5 @@
 ```
 const utilLog = require('util-log');
 
-// TODO: DEMONSTRATE API
+// TODO: DEMONSTRATE API 1
 ```
