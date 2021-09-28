@@ -91,5 +91,16 @@ async function checkCLIUpdate(){
 // 2.注册阶段
 function register() {
     console.log('进入注册阶段')
+    // 
+    program
+        .name(Object.keys(pkg.bin)[0])
+        .version(pkg.version, '-v, --version', '当前脚手架版本号')
+        .usage('<command> [options]')
+        .option('-d, --debug', '是否开启调试模式', false)
+        .option('-lp, --local-path', '是否指定本地调试文件的入口路径', '')
+
+    program.parse(process.argv);
+
+    program.outputHelp();
 }
 
