@@ -15,14 +15,14 @@ const program = new Command();
 
 
 async function cli() {
-    // TODO
-    console.log('进入cli/lib/index.js')
-    
     try {
        await prepare()
        register()
     } catch (error) {
         npmlog.error(error.message)
+        if(program.opts().debug) {
+            console.log(error);
+        }
     }
 }
 
@@ -49,7 +49,6 @@ function checkRootRole() {
 
 // 1.3 检查用户主目录
 function checkUserHome() {
-    console.log('用户主目录' + userHome)
     if(!userHome || !pathExists(userHome)) {
         throw new Error(colors.red('当前用户主目录不存在！'))
     }
@@ -76,7 +75,6 @@ function checkENV() {
 async function checkCLIUpdate(){
     const curVersion = pkg.version
     const npmName = pkg.name
-    console.log(npmName, curVersion)
     const { getNpmSemverVersion } = require('@estayjs/util-npm')
     const latestVersion = await getNpmSemverVersion(curVersion, npmName)
     if(latestVersion && semver.gt(latestVersion, curVersion)) {
@@ -91,14 +89,62 @@ async function checkCLIUpdate(){
 // 2.注册阶段
 function register() {
     console.log('进入注册阶段')
-    // 
+
     program
         .name(Object.keys(pkg.bin)[0])
         .version(pkg.version, '-v, --version', '当前脚手架版本号')
         .usage('<command> [options]')
         .option('-d, --debug', '是否开启调试模式', false)
-        .option('-lp, --local-path', '是否指定本地调试文件的入口路径', '')
+        .option('-lp, --local-path [localPath]', '是否指定本地调试文件的入口路径', '')
 
+    // init 命令
+    program
+        .command('init [projectName]')
+        .description('初始化项目')
+        .option('-f, --force', '是否强制初始化项目')
+        .action((projectName, options, command) => {
+            console.log(`projectName:  ${projectName}`);
+            console.log(`options:  %o`, options);
+            console.log(`command name:  ${command.name()}`);
+            console.log(`program .opts: %o`, program.opts());
+        });
+
+    // TODO: 其他命令
+
+    // 监听debug模式
+    program.on('option:debug', function () {
+        if(this.opts().debug) {
+            process.env.LOG_LEVEL = 'verbose';
+        } else {
+            process.env.LOG_LEVEL = 'info';
+        }
+        npmlog.level = process.env.LOG_LEVEL
+    })
+
+    // 监听指定本地调试文件入口路径
+    program.on('option:local-path', function () {
+        console.log('本地调试文件路径： ' + this.opts().localPath)
+        process.env.CLI_LOCAL_PATH = this.opts().localPath
+    })
+
+    // 监听未知命令
+    program.on('command:*', function (operands) {
+        const availableCommands = program.commands.map(cmd => cmd.name());
+        console.log(colors.red('未知的命令：' + operands[0]));
+        if(availableCommands.length) {
+            console.log(colors.red('可用命令：' + availableCommands.join(',')));
+        }
+    });
+
+    // 自定义帮助
+    program.addHelpText('after',
+    `
+Example call:
+    $ test-cli --help
+    `);
+
+
+    // 解析参数
     program.parse(process.argv);
 
     program.outputHelp();
