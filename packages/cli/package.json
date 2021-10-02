@@ -1,6 +1,6 @@
 {
   "name": "@estayjs/cli",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "@estayjs/cli",
   "author": "刘志涛 <damon.liu@estay.com>",
   "homepage": "",
@@ -23,9 +23,9 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
+    "@estayjs/dynamic-exec": "file:../dynamic-exec",
     "@estayjs/util-log": "file:../util-log",
     "@estayjs/util-npm": "file:../util-npm",
-    "@estayjs/dynamic-exec": "file:../dynamic-exec",
     "colors": "^1.4.0",
     "commander": "^8.2.0",
     "dotenv": "^10.0.0",
