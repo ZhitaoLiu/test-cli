@@ -9,6 +9,7 @@ const userHome = require('user-home');
 const pathExists = require('path-exists').sync;
 const colors = require('colors');
 const npmlog = require('@estayjs/util-log')
+const dynamicExec = require('@estayjs/dynamic-exec')
 const pkg = require('../package.json');
 
 const program = new Command();
@@ -43,19 +44,22 @@ function checkCLIVersion() {
 
 // 1.2 检查root权限
 function checkRootRole() {
+    console.log('检查root权限')
     const rootCheck = require('root-check')
     rootCheck();
 }
 
-// 1.3 检查用户主目录
+// 1.3 检查用户主目录 (后续要往主目录写入缓存)
 function checkUserHome() {
+    console.log('检查用户主目录')
     if(!userHome || !pathExists(userHome)) {
         throw new Error(colors.red('当前用户主目录不存在！'))
     }
 }
 
-// 1.4 检查环境变量
+// 1.4 检查环境变量 (本地缓存需要)
 function checkENV() {
+    console.log('检查环境变量')
     const dotenv = require('dotenv')
     const dotenvPath = path.resolve(userHome, '.env')
     if(pathExists(dotenvPath)) {
@@ -73,6 +77,7 @@ function checkENV() {
 
 // 1.5 检查版本更新
 async function checkCLIUpdate(){
+    console.log('检查版本更新')
     const curVersion = pkg.version
     const npmName = pkg.name
     const { getNpmSemverVersion } = require('@estayjs/util-npm')
@@ -107,6 +112,9 @@ function register() {
             console.log(`options:  %o`, options);
             console.log(`command name:  ${command.name()}`);
             console.log(`program .opts: %o`, program.opts());
+            // 动态执行命令
+            dynamicExec(projectName, options, command)
+
         });
 
     // TODO: 其他命令
@@ -147,6 +155,9 @@ Example call:
     // 解析参数
     program.parse(process.argv);
 
-    program.outputHelp();
+    
+    if (program.args && program.args.length < 1) {
+        program.outputHelp();
+    }
 }
 
