@@ -13,9 +13,9 @@ async function dynamicExec() {
     console.log('进入 动态执行命令 阶段')
     const cliHomePath = process.env.CLI_HOME_PATH;
     let localPath = process.env.CLI_LOCAL_PATH;
-    let pkg;
     npmlog.verbose('cliHomePath', cliHomePath);
     npmlog.verbose('localPath', localPath);
+    let pkg;
 
     const command = arguments[arguments.length - 1];
     const cmdName = command.name();
@@ -67,19 +67,20 @@ async function dynamicExec() {
                 }
               });
             args[args.length - 1] = o;
-            console.log('111')
-            console.log(args)
+            //
             const code = `require('${rootFile}').call(null, ${JSON.stringify(args)})`;
             // 开启子进程执行
-            const child = spawn('node', ['e', code], {
+            const child = spawn('node', ['-e', code], {
                 cwd: process.cwd(),
                 stdio: 'inherit'
             })
             child.on('error', e => {
+                console.log('222222')
                 npmlog.error(e.message);
                 process.exit(1);
             });
             child.on('exit', e => {
+                console.log('333333')
                 npmlog.verbose('命令执行成功:' + e);
                 process.exit(e);
             });
