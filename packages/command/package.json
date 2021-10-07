@@ -25,5 +25,10 @@
   },
   "bugs": {
     "url": "https://github.com/ZhitaoLiu/test-cli/issues"
+  },
+  "dependencies": {
+    "@estayjs/util-log": "file:../util-log",
+    "colors": "^1.4.0",
+    "semver": "^7.3.5"
   }
 }

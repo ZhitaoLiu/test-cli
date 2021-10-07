@@ -25,5 +25,8 @@
   },
   "bugs": {
     "url": "https://github.com/ZhitaoLiu/test-cli/issues"
+  },
+  "dependencies": {
+    "@estayjs/command": "file:../command"
   }
 }

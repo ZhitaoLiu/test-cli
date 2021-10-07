@@ -1,13 +1,22 @@
 'use strict';
 
-module.exports = commandInit;
+const Command = require("@estayjs/command")
 
-function commandInit() {
-    // TODO
-    const args = Array.from(arguments)
-    console.log('command init npm包')
-    console.log('args[0] : ' + args[0])
-    console.log('args[1] : %o', args[1])
-    console.log('args[2] : %o', args[2])
+class InitCommand extends Command {
+    // 重写
+    init() {
 
+    }
+    // 重写
+    exec() {
+        
+    }
 }
+
+function commandInit(argv) {
+    return new InitCommand(argv)
+}
+
+module.exports = commandInit
+module.exports.InitCommand = InitCommand;
+
