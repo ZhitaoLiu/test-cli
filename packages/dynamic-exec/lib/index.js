@@ -56,6 +56,19 @@ async function dynamicExec() {
     if(rootFile) {
         try {
             const args = Array.from(arguments)
+            // 对cmd瘦身
+            const cmd = args[args.length - 1];
+            const o = Object.create(null);
+            Object.keys(cmd).forEach(key => {
+                if (cmd.hasOwnProperty(key) &&
+                  !key.startsWith('_') &&
+                  key !== 'parent') {
+                  o[key] = cmd[key];
+                }
+              });
+            args[args.length - 1] = o;
+            console.log('111')
+            console.log(args)
             const code = `require('${rootFile}').call(null, ${JSON.stringify(args)})`;
             // 开启子进程执行
             const child = spawn('node', ['e', code], {
@@ -63,14 +76,15 @@ async function dynamicExec() {
                 stdio: 'inherit'
             })
             child.on('error', e => {
-                log.error(e.message);
+                npmlog.error(e.message);
                 process.exit(1);
             });
             child.on('exit', e => {
-                log.verbose('命令执行成功:' + e);
+                npmlog.verbose('命令执行成功:' + e);
                 process.exit(e);
             });
         } catch (error) {
+            npmlog.error('123')
             npmlog.error(error.message)
         }
     }

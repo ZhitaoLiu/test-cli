@@ -30,7 +30,7 @@
     "@estayjs/util-npm": "file:../util-npm",
     "@estayjs/utils": "file:../utils",
     "fs-extra": "^10.0.0",
-    "npminstall": "^5.1.2",
+    "npminstall": "^4.10.0",
     "path-exists": "4.0.0",
     "pkg-dir": "^5.0.0"
   }
