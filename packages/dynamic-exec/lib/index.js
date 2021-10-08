@@ -75,12 +75,10 @@ async function dynamicExec() {
                 stdio: 'inherit'
             })
             child.on('error', e => {
-                console.log('222222')
                 npmlog.error(e.message);
                 process.exit(1);
             });
             child.on('exit', e => {
-                console.log('333333')
                 npmlog.verbose('命令执行成功:' + e);
                 process.exit(e);
             });

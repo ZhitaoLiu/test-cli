@@ -19,6 +19,15 @@ function systemPathFormat(p) {
   return p;
 }
 
+// 项目名是否规范
+function isValidProjectName(v) {
+  // 1.首字符必须为英文字符
+  // 2.尾字符必须为英文或数字，不能为字符
+  // 3.字符仅允许"-_"
+  return /^[a-zA-Z]+([-][a-zA-Z][a-zA-Z0-9]*|[_][a-zA-Z][a-zA-Z0-9]*|[a-zA-Z0-9])*$/.test(v);
+}
+
+
 // 异步进程的创建并执行（异步方式）
 function spawn(command, args, options) {
   const win32 = process.platform === 'win32';
@@ -42,6 +51,7 @@ function spawnAsync(command, args, options) {
 
 module.exports = {
     isObject,
+    isValidProjectName,
     systemPathFormat,
     spawn,
     spawnAsync

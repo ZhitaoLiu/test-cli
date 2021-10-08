@@ -108,12 +108,13 @@ function register() {
         .description('初始化项目')
         .option('-f, --force', '是否强制初始化项目')
         .action((projectName, options, command) => {
-            console.log(`projectName:  ${projectName}`);
-            console.log(`options:  %o`, options);
-            console.log(`command name:  ${command.name()}`);
-            console.log(`program .opts: %o`, program.opts());
+            // console.log(`projectName:  ${projectName}`);
+            // console.log(`options:  %o`, options);
+            // console.log(`command name:  ${command.name()}`);
+            // console.log(`program .opts: %o`, program.opts());
+            const programOpts = program.opts() || {}
             // 动态执行命令
-            dynamicExec(projectName, options, command)
+            dynamicExec(projectName, {...programOpts, ...options}, command)
 
         });
 

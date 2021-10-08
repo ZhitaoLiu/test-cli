@@ -8,8 +8,6 @@ const LOWEST_NODE_VERSION = '12.0.0'
 
 class Command {
     constructor(argv) {
-        console.log('22222')
-        console.log(typeof argv)
         if(!argv) {
             throw new Error('参数不能为空！');
         }
@@ -19,7 +17,7 @@ class Command {
         if (argv.length < 1) {
             throw new Error('参数列表为空！');
         }
-        this._argv = argv
+        this._argvArr = argv
         new Promise((resolve, reject) => {
             let chain = Promise.resolve()
             chain = chain.then(() => this.checkNodeVersion())
@@ -40,9 +38,9 @@ class Command {
 
     // 初始化参数
     initArgs() {
-        console.log('参数1 %s', this._argv[0])
-        console.log('参数2 %o', this._argv[1])
-        console.log('参数3 %o', this._argv[2])
+        this._cmd = this._argvArr[this._argvArr.length-1]
+        this._options = this._argvArr[this._argvArr.length-2]
+        this._argv = this._argvArr.slice(0, this._argvArr.length-2)
     }
 
     // 初始化
