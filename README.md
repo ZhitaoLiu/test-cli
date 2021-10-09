@@ -10,10 +10,10 @@
 
 ### 2.本地缓存体系设计
 
-|- /Users/damon/        **用户主目录**
-|-- .test-cli    
-|--|-- dependencies     **脚手架动态依赖包target path**
-|--|--|-- node_modules  **store dir**
-|--|--|--|-- _@test-cli_command-init@版本号@@test-cli/command-init
-|--|-- template         **模版target path**
-|--|--|-- node_modules  **store dir**
+- |- /Users/damon/        **用户主目录**
+- |-- .test-cli    
+- |--|-- dependencies     **脚手架动态依赖包target path**
+- |--|--|-- node_modules  **store dir**
+- |--|--|--|-- _@test-cli_command-init@版本号@@test-cli/command-init
+- |--|-- template         **模版target path**
+- |--|--|-- node_modules  **store dir**
