@@ -28,11 +28,15 @@
   },
   "dependencies": {
     "@estayjs/command": "file:../command",
+    "@estayjs/package": "file:../package",
     "@estayjs/util-log": "file:../util-log",
     "@estayjs/utils": "file:../utils",
+    "ejs": "^3.1.6",
     "fs-extra": "^10.0.0",
+    "glob": "^7.2.0",
     "inquirer": "^8.2.0",
     "kebab-case": "^1.0.1",
-    "semver": "^7.3.5"
+    "semver": "^7.3.5",
+    "user-home": "^2.0.0"
   }
 }
