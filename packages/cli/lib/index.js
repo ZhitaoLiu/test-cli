@@ -30,7 +30,7 @@ async function cli() {
 
 // 1.准备阶段
 async function prepare() {
-    console.log('进入准备阶段')
+    npmlog.info('进入准备阶段')
     checkCLIVersion()
     checkRootRole()
     checkUserHome()
@@ -44,14 +44,14 @@ function checkCLIVersion() {
 
 // 1.2 检查root权限
 function checkRootRole() {
-    console.log('检查root权限')
+    npmlog.info('检查root权限...');
     const rootCheck = require('root-check')
     rootCheck();
 }
 
 // 1.3 检查用户主目录 (后续要往主目录写入缓存)
 function checkUserHome() {
-    console.log('检查用户主目录')
+    npmlog.info('检查用户主目录...');
     if(!userHome || !pathExists(userHome)) {
         throw new Error(colors.red('当前用户主目录不存在！'))
     }
@@ -59,7 +59,7 @@ function checkUserHome() {
 
 // 1.4 检查环境变量 (本地缓存需要)
 function checkENV() {
-    console.log('检查环境变量')
+    npmlog.info('检查环境变量...');
     const dotenv = require('dotenv')
     const dotenvPath = path.resolve(userHome, '.env')
     if(pathExists(dotenvPath)) {
@@ -77,7 +77,7 @@ function checkENV() {
 
 // 1.5 检查版本更新
 async function checkCLIUpdate(){
-    console.log('检查版本更新')
+    npmlog.info('检查版本更新...');
     const curVersion = pkg.version
     const npmName = pkg.name
     const { getNpmSemverVersion } = require('@estayjs/util-npm')
@@ -93,8 +93,7 @@ async function checkCLIUpdate(){
 
 // 2.注册阶段
 function register() {
-    console.log('进入注册阶段')
-
+    npmlog.info('进入注册阶段')
     program
         .name(Object.keys(pkg.bin)[0])
         .version(pkg.version, '-v, --version', '当前脚手架版本号')
@@ -133,6 +132,7 @@ function register() {
     // 监听指定本地调试文件入口路径
     program.on('option:local-path', function () {
         console.log('本地调试文件路径： ' + this.opts().localPath)
+
         process.env.CLI_LOCAL_PATH = this.opts().localPath
     })
 

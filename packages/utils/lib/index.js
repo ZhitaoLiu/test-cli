@@ -44,15 +44,47 @@ function spawnAsync(command, args, options) {
       reject(e);
     });
     p.on('exit', c => {
+      // c 为 0
       resolve(c);
     });
   });
 }
+
+// 旋转提示
+function spinnerStart(msg, spinnerString = '|/-\\') {
+  const Spinner = require('cli-spinner').Spinner;
+  const spinner = new Spinner(msg + ' %s');
+  spinner.setSpinnerString(spinnerString);
+  spinner.start();
+  return spinner;
+}
+
+// 判断目录是否为空
+function isDirEmpty(localPath, options={}) {
+  const { ignoreNodeModules=true, ignoreStartWithDot=true } = options
+  let fileList = fs.readdirSync(localPath)
+  if(ignoreNodeModules) {
+    fileList = fileList.filter(file => !file.startsWith('.'))
+  }
+  if(ignoreStartWithDot) {
+    fileList = fileList.filter(file => ['node_modules'].indexOf(file) < 0)
+  }
+  return !fileList || fileList.length <= 0
+}
+
+function sleep(timeout = 1000) {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
+
 
 module.exports = {
     isObject,
     isValidProjectName,
     systemPathFormat,
     spawn,
-    spawnAsync
+    spawnAsync,
+    spinnerStart,
+    isDirEmpty,
+    sleep
 }
