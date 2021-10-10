@@ -1,7 +1,24 @@
 {
   "name": "root",
   "private": false,
+  "scripts": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix"
+    ]
+  },
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "@babel/eslint-parser": "^7.15.8",
+    "eslint": "^8.0.0",
+    "eslint-config-alloy": "^4.3.0",
+    "husky": "^4.2.5",
+    "lerna": "^3.22.1",
+    "lint-staged": "^11.2.2",
+    "prettier": "^2.4.1"
   }
 }
