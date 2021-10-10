@@ -10,7 +10,7 @@ const COMMAND_CONFIG = {
 }
 
 async function dynamicExec() {
-    console.log('进入 动态执行命令 阶段')
+    npmlog.info('进入动态命令执行阶段')
     const cliHomePath = process.env.CLI_HOME_PATH;
     let localPath = process.env.CLI_LOCAL_PATH;
     npmlog.verbose('cliHomePath', cliHomePath);
