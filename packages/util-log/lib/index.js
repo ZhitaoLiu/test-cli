@@ -1,12 +1,9 @@
-'use strict';
+const npmlog = require('npmlog');
 
-const npmlog = require('npmlog')
-
-npmlog.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'info'
+npmlog.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'info';
 
 npmlog.heading = 'estayjs';
 
 npmlog.addLevel('success', 2000, { fg: 'green', bold: true });
 
-module.exports = npmlog
-
+module.exports = npmlog;

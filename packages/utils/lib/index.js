@@ -1,9 +1,8 @@
-'use strict';
-
+const fs = require('fs');
 const path = require('path');
 
 function isObject(o) {
-    return Object.prototype.toString.call(o) === '[object Object]';
+  return Object.prototype.toString.call(o) === '[object Object]';
 }
 
 // 兼容不同系统的路径差异
@@ -27,7 +26,6 @@ function isValidProjectName(v) {
   return /^[a-zA-Z]+([-][a-zA-Z][a-zA-Z0-9]*|[_][a-zA-Z][a-zA-Z0-9]*|[a-zA-Z0-9])*$/.test(v);
 }
 
-
 // 异步进程的创建并执行（异步方式）
 function spawn(command, args, options) {
   const win32 = process.platform === 'win32';
@@ -40,10 +38,10 @@ function spawn(command, args, options) {
 function spawnAsync(command, args, options) {
   return new Promise((resolve, reject) => {
     const p = spawn(command, args, options);
-    p.on('error', e => {
+    p.on('error', (e) => {
       reject(e);
     });
-    p.on('exit', c => {
+    p.on('exit', (c) => {
       // c 为 0
       resolve(c);
     });
@@ -60,31 +58,30 @@ function spinnerStart(msg, spinnerString = '|/-\\') {
 }
 
 // 判断目录是否为空
-function isDirEmpty(localPath, options={}) {
-  const { ignoreNodeModules=true, ignoreStartWithDot=true } = options
-  let fileList = fs.readdirSync(localPath)
-  if(ignoreNodeModules) {
-    fileList = fileList.filter(file => !file.startsWith('.'))
+function isDirEmpty(localPath, options = {}) {
+  const { ignoreNodeModules = true, ignoreStartWithDot = true } = options;
+  let fileList = fs.readdirSync(localPath);
+  if (ignoreNodeModules) {
+    fileList = fileList.filter((file) => !file.startsWith('.'));
   }
-  if(ignoreStartWithDot) {
-    fileList = fileList.filter(file => ['node_modules'].indexOf(file) < 0)
+  if (ignoreStartWithDot) {
+    fileList = fileList.filter((file) => ['node_modules'].indexOf(file) < 0);
   }
-  return !fileList || fileList.length <= 0
+  return !fileList || fileList.length <= 0;
 }
 
 function sleep(timeout = 1000) {
-  return new Promise(resolve => setTimeout(resolve, timeout));
+  // eslint-disable-next-line no-promise-executor-return
+  return new Promise((resolve) => setTimeout(resolve, timeout));
 }
-
-
 
 module.exports = {
-    isObject,
-    isValidProjectName,
-    systemPathFormat,
-    spawn,
-    spawnAsync,
-    spinnerStart,
-    isDirEmpty,
-    sleep
-}
+  isObject,
+  isValidProjectName,
+  systemPathFormat,
+  spawn,
+  spawnAsync,
+  spinnerStart,
+  isDirEmpty,
+  sleep,
+};

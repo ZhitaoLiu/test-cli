@@ -13,5 +13,6 @@ module.exports = {
   },
   rules: {
     // 自定义你的规则
+    'no-new': 0,
   },
 };
